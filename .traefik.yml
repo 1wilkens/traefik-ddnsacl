@@ -1,12 +1,11 @@
-displayName: Demo Plugin
+displayName: DDNS ACL Plugin
 type: middleware
 iconPath: .assets/icon.png
 
-import: github.com/traefik/plugindemo
+import: github.com/1wilkens/traefik-ddnsacl
 
-summary: '[Demo] Add Request Header'
+summary: 'DDNS allow listing'
 
 testData:
-  Headers:
-    X-Demo: test
-    X-URL: '{{URL}}'
+  domains:
+    - example.com

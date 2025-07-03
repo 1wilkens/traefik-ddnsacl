@@ -1,26 +1,25 @@
-package plugindemo_test
+package ddnsacl
 
 import (
 	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/traefik/plugindemo"
 )
 
 func TestDemo(t *testing.T) {
-	cfg := plugindemo.CreateConfig()
-	cfg.Headers["X-Host"] = "[[.Host]]"
-	cfg.Headers["X-Method"] = "[[.Method]]"
-	cfg.Headers["X-URL"] = "[[.URL]]"
-	cfg.Headers["X-URL"] = "[[.URL]]"
-	cfg.Headers["X-Demo"] = "test"
+	cfg := CreateConfig()
+	cfg.Domains = append(cfg.Domains, "example.com")
+	// cfg.Headers["X-Host"] = "[[.Host]]"
+	// cfg.Headers["X-Method"] = "[[.Method]]"
+	// cfg.Headers["X-URL"] = "[[.URL]]"
+	// cfg.Headers["X-URL"] = "[[.URL]]"
+	// cfg.Headers["X-Demo"] = "test"
 
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, err := plugindemo.New(ctx, next, cfg, "demo-plugin")
+	handler, err := New(ctx, next, cfg, "demo-plugin")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -34,10 +33,10 @@ func TestDemo(t *testing.T) {
 
 	handler.ServeHTTP(recorder, req)
 
-	assertHeader(t, req, "X-Host", "localhost")
-	assertHeader(t, req, "X-URL", "http://localhost")
-	assertHeader(t, req, "X-Method", "GET")
-	assertHeader(t, req, "X-Demo", "test")
+	// assertHeader(t, req, "X-Host", "localhost")
+	// assertHeader(t, req, "X-URL", "http://localhost")
+	// assertHeader(t, req, "X-Method", "GET")
+	// assertHeader(t, req, "X-Demo", "test")
 }
 
 func assertHeader(t *testing.T, req *http.Request, key, expected string) {
