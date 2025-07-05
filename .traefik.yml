@@ -2,7 +2,7 @@ displayName: DDNS ACL Plugin
 type: middleware
 iconPath: .assets/icon.png
 
-import: github.com/1wilkens/traefik-ddnsacl
+import: github.com/1wilkens/ddnsacl
 
 summary: 'DDNS allow listing'
 
